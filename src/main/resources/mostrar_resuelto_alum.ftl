@@ -26,11 +26,12 @@
       <div class="jumbotron" style="margin-top:20px">
         <h1 class="display-4">Solución</h1>
 		<div class="mb-3">
- 		<label for="formFile" class="form-label">Fichero</label>
-  		<input class="form-control" type="file" id="formFile">
-  		<button type="submit" style="margin-top:20px" class="btn btn-primary" type="submit">
-  			Submit</button>
-		</div>
+		    <label for="archivo" class="form-label">Selecciona un archivo:</label>
+		    <input type="file" class="form-control" id="archivo">
+	    </div>
+  		<button type="submit" style="margin-top:20px" class="btn btn-primary" id="enviar">
+  			Enviar</button>
+  			
         <table class="table" style="margin-top:30px">
   		  <thead>
    			<tr>
@@ -56,4 +57,29 @@
     <script type="text/javascript">
     $("#linkhome").css('text-decoration', 'underline')
     </script>
+    <script>
+            $(document).ready(function() {
+                $("#enviar").click(function() {
+		            var archivo = $("#archivo")[0].files[0];
+		
+		            var formData = new FormData();
+		            formData.append("archivo", archivo);
+		            
+                    $.ajax({
+                        url: "/guardar-archivo-alumno",
+                        type: "POST",
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            console.log("Archivo guardado con éxito");
+                        },
+                        error: function(jqXHR, textStatus, errorMessage) {
+                            console.error("Error al enviar el archivo:", errorMessage);
+                        }
+                    });
+                });
+            });
+        </script>
 </html>

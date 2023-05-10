@@ -24,20 +24,20 @@
       <#include "./navbar.html"/>
       
       <div class="jumbotron" style="margin-top:20px">
-        <h1 class="display-4">Welcome Smart Lab</h1>
-        <p class="lead">This page has been build using the <a href="https://github.com/AuroralH2020/kg-builder">Knowledge Graph Builder</a> in the context of the European AURORAL project. The goal of the page is to display the different sensors deployed in the laboratory of the research group <a href="https://oeg.fi.upm.es/">Ontology Engineering Group </a> at the Universidad Politécnica de Madrid.</p>
-        <h5>If you want a demo or a tutorial contact us.</h5>
-        <hr class="my-4">
-        <div style="text-align: center;">
-        <img src="https://github.com/oeg-upm/websiteFooterLogos/blob/master/images/oeg.jpg?raw=true" width="200px"/>
-        <img src="https://www.auroral.eu/img/logos/AURORAL-Horizontal_o.png" width="400px" />
-        </div>
-        <div class="mb-3">
-  		<label for="formFile" class="form-label">Default file input example</label>
-  		<input class="form-control" type="file" id="formFile">
+		<div class="mb-3">
+		 	<label for="entero" class="form-label">Selecciona un nivel de feedback:</label>
+	  		<select class="form-select form-select-sm" aria-label=".form-select-sm example">
+	  		  <option selected>Nivel feedback</option>
+			  <option value="0">Bajo</option>
+			  <option value="1">Medio</option>
+			  <option value="2">Bueno</option>
+			  <option value="3">Muy bueno</option>
+			</select>
 		</div>
-      </div>
-      
+  		<button type="submit" style="margin-top:20px" class="btn btn-primary" id="enviar">
+  			Enviar</button>
+	  </div>
+  	</div>
   </body>
   <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -47,4 +47,29 @@
     <script type="text/javascript">
     $("#linkhome").css('text-decoration', 'underline')
     </script>
+    <script>
+            $(document).ready(function() {
+                $("#enviar").click(function() {
+		            var entero = $("#entero").val();
+		
+		            var formData = new FormData();
+		            formData.append("entero", entero);
+		            
+                    $.ajax({
+                        url: "/guardar-nivel",
+                        type: "POST",
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            console.log("Nivel guardado con éxito");
+                        },
+                        error: function(jqXHR, textStatus, errorMessage) {
+                            console.error("Error al enviar el integer:", errorMessage);
+                        }
+                    });
+                });
+            });
+        </script>
 </html>

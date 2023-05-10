@@ -1,4 +1,7 @@
 package proyecto.controladores;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,10 +17,27 @@ public class ControladorProfesor {
 	private final static ViewRenderer renderer = new FreemarkerRenderer();
 	private static Repository<ConfiguracionDificultad> repositorio = new Repository<>(ConfiguracionDificultad.class);
 	
+	public static Route guardarNivel =(request, response) -> {
+	    int entero = Integer.parseInt(request.queryParams("entero"));
+	    return "Nivel recibido con éxito";
+	};
+	
+	public static Route guardar =(request, response) -> {
+		InputStream archivoInputStream = request.raw().getPart("archivo").getInputStream();
+	    BufferedReader archivoBufferedReader = new BufferedReader(new InputStreamReader(archivoInputStream));
+	    StringBuilder archivoStringBuilder = new StringBuilder();
+	    String lineaArchivo;
+	    while ((lineaArchivo = archivoBufferedReader.readLine()) != null) {
+	        archivoStringBuilder.append(lineaArchivo);
+	        archivoStringBuilder.append(System.lineSeparator());
+	    }
+	    int entero = Integer.parseInt(request.queryParams("entero"));
+	    String mensaje = "Archivo guardado con éxito con el entero: " + entero;
+        return mensaje;
+	    
+	};
+	
 	public static Route resolver=(Request req, Response res)->{
-        String archivo= req.queryParams("archivo");
-        String body= req.queryParams("nivel_feedback");
-        Integer nivel_feedback = Integer.valueOf(body);
         Map<String, Object> attr= new HashMap<>();
         try {
 			return renderer.render(attr, "mostrar_resuelto_prof.ftl");
@@ -30,11 +50,6 @@ public class ControladorProfesor {
     };
     public static Route setupConfiguration=(Request request, Response response)->{
 
-		String body = request.queryParams("level");
-		Integer level=Integer.valueOf(body);
-		ConfiguracionDificultad conf = new ConfiguracionDificultad(level);
-		//repositorio.persist(conf);
-		System.out.println(repositorio.retrieve());
         Map<String, Object> attr= new HashMap<>();
         try {
 			return renderer.render(attr, "nivel.ftl");

@@ -26,18 +26,22 @@
       <div class="jumbotron" style="margin-top:20px">
         <h1 class="display-4">Solución</h1>
 		<div class="mb-3">
- 		<label for="formFile" class="form-label">Fichero</label>
-  		<input class="form-control" type="file" id="formFile">
-  		<select class="form-select form-select-sm" aria-label=".form-select-sm example">
-  		  <option selected>Nivel feedback</option>
-		  <option value="0">Mal</option>
-		  <option value="1">Regular</option>
-		  <option value="2">Bien</option>
-		  <option value="3">Muy bien</option>
-		</select>
-  		<button type="submit" style="margin-top:20px" class="btn btn-primary" type="submit">
-  			Submit</button>
+		    <label for="archivo" class="form-label">Selecciona un archivo:</label>
+		    <input type="file" class="form-control" id="archivo">
+	    </div>
+		<div class="mb-3">
+		 	<label for="entero" class="form-label">Selecciona un nivel de feedback:</label>
+	  		<select class="form-select form-select-sm" aria-label=".form-select-sm example">
+	  		  <option selected>Nivel feedback</option>
+			  <option value="0">Mal</option>
+			  <option value="1">Regular</option>
+			  <option value="2">Bien</option>
+			  <option value="3">Muy bien</option>
+			</select>
 		</div>
+  		<button type="submit" style="margin-top:20px" class="btn btn-primary" id="enviar">
+  			Enviar</button>
+  			
         <table class="table" style="margin-top:30px">
   		  <thead>
    			<tr>
@@ -63,4 +67,31 @@
     <script type="text/javascript">
     $("#linkhome").css('text-decoration', 'underline')
     </script>
+    <script>
+            $(document).ready(function() {
+                $("#enviar").click(function() {
+		            var archivo = $("#archivo")[0].files[0];
+		            var entero = $("#entero").val();
+		
+		            var formData = new FormData();
+		            formData.append("archivo", archivo);
+		            formData.append("entero", entero);
+		            
+                    $.ajax({
+                        url: "/guardar-archivo",
+                        type: "POST",
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            console.log("Archivo guardado con éxito");
+                        },
+                        error: function(jqXHR, textStatus, errorMessage) {
+                            console.error("Error al enviar el archivo:", errorMessage);
+                        }
+                    });
+                });
+            });
+        </script>
 </html>
