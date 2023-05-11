@@ -1,9 +1,13 @@
 package proyecto.controladores;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.io.BufferedReader;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.MultipartConfigElement;
 
 import proyecto.modelo.ConfiguracionDificultad;
 import proyecto.persistencia.Repository;
@@ -23,16 +27,28 @@ public class ControladorProfesor {
 	};
 	
 	public static Route guardar =(request, response) -> {
+		int entero  = -1;
+		try {
+		
+		request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("./temp"));
+
 		InputStream archivoInputStream = request.raw().getPart("archivo").getInputStream();
-	    BufferedReader archivoBufferedReader = new BufferedReader(new InputStreamReader(archivoInputStream));
+		BufferedReader archivoBufferedReader = new BufferedReader(new InputStreamReader(archivoInputStream));
 	    StringBuilder archivoStringBuilder = new StringBuilder();
 	    String lineaArchivo;
 	    while ((lineaArchivo = archivoBufferedReader.readLine()) != null) {
 	        archivoStringBuilder.append(lineaArchivo);
 	        archivoStringBuilder.append(System.lineSeparator());
 	    }
-	    int entero = Integer.parseInt(request.queryParams("entero"));
+	    System.out.println(archivoStringBuilder.toString());
+	     entero = Integer.parseInt(request.queryParams("entero"));
+	     response.status(200);
+		}catch(Exception e) {
+			e.printStackTrace();
+			response.status(400);
+		}
 	    String mensaje = "Archivo guardado con éxito con el entero: " + entero;
+	    
         return mensaje;
 	    
 	};
