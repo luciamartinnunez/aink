@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Doctor FIS</title>
     <link href="https://github.com/AuroralH2020/kg-builder/raw/main/src/main/resources/spark/template/freemarker/css/favicon.ico" rel="shortcut icon" type="image/png">
     <!--leaflet -->
@@ -15,6 +14,9 @@
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
     <style type="text/css">
       #map { height: 500px; }
+      table thead{
+      	background-color: #33DFFF;
+      	color: #FFFFFF;
     </style>
 
    
@@ -33,32 +35,44 @@
 		 	<label for="entero" class="form-label">Selecciona un nivel de feedback:</label>
 	  		<select class="form-select form-select-sm" id="entero" aria-label=".form-select-sm example">
 	  		  <option value="-1" selected>Nivel feedback</option>
-			  <option value="0">Mal</option>
-			  <option value="1">Regular</option>
-			  <option value="2">Bien</option>
-			  <option value="3">Muy bien</option>
+			  <option value="0">Bajo</option>
+			  <option value="1">Medio</option>
+			  <option value="2">Bueno</option>
+			  <option value="3">Muy bueno</option>
 			</select>
 		</div>
-  		<button type="submit" style="margin-top:20px" class="btn btn-primary" id="enviar" onclick="enviar()">
+  		<button type="submit" style="margin-top:20px" class="btn btn-primary" onclick="verificar()">
   			Enviar</button>
   			  <div class="spinner-border text-success" style="visibility:hidden;" id="spinner-submit" role="status">
             <span class="sr-only">Loading...</span>
           </div>
         <div style="visibility:hidden;" id="divMsgError"><h3 id="msgError"></h3></div>
-        <table class="table" style="margin-top:30px">
+       <!--toast-->
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="position: absolute; right: 20px;">
+		  <div class="toast-header">
+		    <strong class="mr-auto">Atención</strong>
+		    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+		      <span aria-hidden="true">&times;</span>
+		    </button>
+		  </div>
+		  <div class="toast-body">
+		    No es valida esa selección.
+		  </div>
+		</div>
+       <!--toast-->
+       <!--tabla-->
+        <table class="table table-bordered table-striped" style="margin-top:30px">
   		  <thead>
    			<tr>
-		      <th scope="col">X</th>
-		      <th scope="col">Error</th>
+		      <th scope="col">CÓDIGO</th>
+		      <th scope="col">ERROR</th>
     		</tr>
   		  </thead>
-		  <tbody>
-		    <tr>
-		      <th scope="row"></th>
-		      <td></td>
-		    </tr>
+		  <tbody id="data">
+		  	<td>
 		  </tbody>
 		</table>
+		<!--tabla-->
 	  </div>
   	</div>
   </body>
@@ -71,36 +85,66 @@
     $("#linkhome").css('text-decoration', 'underline')
     </script>
     <script>
-            function enviar() {
-  		            var archivo = $("#archivo")[0].files[0];
-  		            var entero = $("#entero").val();
-  		            console.log(archivo+" "+entero);
-  		            var formData = new FormData();
-  		            formData.append("archivo", archivo);
-  		            formData.append("entero", entero);
-  		            
-                  var xmlHttp = new XMLHttpRequest();
-                  xmlHttp.onreadystatechange = function() { 
+    
+    	function verificar(){
+    		if(verificarValor()){
+    		 verificarArcivo();
+    		 }
+    		 else{$('.toast').toast('show');};
+    	};
+	// Función para verificar el valor ingresado
+		function verificarValor() {
+		  const valorIngresado = $("#entero").val();
+		  const numero = parseInt(valorIngresado);
+	
+		  if (numero <0 || numero>3) {
+		    // Mostrar mensaje de error 
+		    $("#divMsgError").css("visibility", "hidden");
+			return false;
+		  }
+		  // El valor ingresado es correcto
+		  else {
+		  	return true;
+		  	};
+		}
+		
+		function verificarArcivo(){
+			const archivo = $("#archivo")[0].files[0];
+			if(archivo){
+				$('.toast').toast('hide');
+		  		enviar();}
+			else {
+				$("#divMsgError").css("visibility", "hidden");
+				$('.toast').toast('show');};
+		}
+        function enviar() {
+	            var archivo = $("#archivo")[0].files[0];
+	            var entero = $("#entero").val();
+	            console.log(archivo+" "+entero);
+	            var formData = new FormData();
+	            formData.append("archivo", archivo);
+	            formData.append("entero", entero);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function() { 
+                  console.log(xmlHttp.responseText);
+                  if (xmlHttp.readyState == 4){
+                      if(xmlHttp.status < 300){
                       console.log(xmlHttp.responseText);
-                      if (xmlHttp.readyState == 4){
-                          if(xmlHttp.status < 300){
-                          console.log(xmlHttp.responseText);
-                          $("#spinner-submit").css("visibility", "hidden");
-                          $("#divMsgError").css("visibility", "visible");
-                          $("#divMsgError").css("color", "green");
-                          $("#msgError").text( xmlHttp.responseText );
-                        }else{
-                           $("#spinner-submit").css("visibility", "hidden");
-                          $("#divMsgError").css("visibility", "visible");
-                          $("#divMsgError").css("color", "red");
-                          $("#msgError").value = xmlHttp.responseText;
-                        }
-                      }
-                  };
-                  console.log(formData);
-                  xmlHttp.open("POST", "/guardar-archivo", true); // true for asynchronous 
-                  xmlHttp.send(formData);
-                  
-                }
+                      $("#spinner-submit").css("visibility", "hidden");
+                      $("#divMsgError").css("visibility", "visible");
+                      $("#divMsgError").css("color", "green");
+                      $("#msgError").text( xmlHttp.responseText );
+                    }else{
+                       $("#spinner-submit").css("visibility", "hidden");
+                      $("#divMsgError").css("visibility", "visible");
+                      $("#divMsgError").css("color", "red");
+                      $("#msgError").value = xmlHttp.responseText;
+                    }
+                  }
+              };
+              console.log(formData);
+              xmlHttp.open("POST", "/guardar-archivo", true); // true for asynchronous 
+              xmlHttp.send(formData);
+            }
         </script>
 </html>

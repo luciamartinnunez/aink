@@ -11,7 +11,7 @@ public class ConfiguracionDificultad {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	
+
 
 	public int getId() {
 		return id;
@@ -42,5 +42,5 @@ public class ConfiguracionDificultad {
 	public String toString() {
 		return "ConfiguracionDificultad [dificultad=" + dificultad + ", id=" + id + "]";
 	}
-	
+
 }

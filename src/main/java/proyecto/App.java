@@ -1,12 +1,9 @@
 package proyecto;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
 import static spark.Spark.port;
+import static spark.Spark.post;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import proyecto.persistencia.Repository;
 import proyecto.controladores.ControladorAlumno;
 import proyecto.controladores.ControladorProfesor;
 import spark.Spark;
@@ -17,13 +14,16 @@ public class App {
         port(9000);
         //stop();
         get("/conf", ControladorProfesor.setupConfiguration);
-        get("/prof/resol", ControladorProfesor.resolver);
-        get("/api/alum/resol", ControladorAlumno.resolver);
-        
+        get("/prof", ControladorProfesor.resolver);
+        get("/alum", ControladorAlumno.resolver);
+
         post("/guardar-archivo", ControladorProfesor.guardar);
-        
+
         post("/guardar-archivo-alumno", ControladorAlumno.guardar);
-        
-        post("/guardar-nivel", ControladorProfesor.guardarNivel);
+
+        post("/guardar", ControladorProfesor.guardarNivel);
+        get("/guardar", ControladorProfesor.guardarNivel);
+
+
     }
 }

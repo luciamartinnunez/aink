@@ -53,6 +53,11 @@
 		    <artifactId>expressly</artifactId>
 		    <version>5.0.0</version>
 		</dependency>
+		<dependency>
+            <groupId>io.github.andreacimminoarriaga</groupId>
+            <artifactId>doctor-fis</artifactId>
+            <version>0.1.2</version>
+        </dependency>
     </dependencies>
 
 
