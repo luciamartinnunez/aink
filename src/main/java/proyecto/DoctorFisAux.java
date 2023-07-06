@@ -55,13 +55,13 @@
 //public class DoctorFisAux implements DoctorFIS {
 //
 //	private Model model = ModelFactory.createDefaultModel();
-//	
+//
 //	public DoctorFisAux(String uml) {
 //		this.model = toRDF(uml);
 //	}
-//	
+//
 //	// Ancillary: transformation methods
-//	
+//
 //	 public static Model toRDF(String uml) {
 //			Model model = ModelFactory.createDefaultModel();
 //			Map<String,Object> localVariables = new HashMap<>();
@@ -99,12 +99,12 @@
 //			}
 //			return result;
 //		}
-//	
+//
 //	//
-//	
+//
 //	@Override
 //	public List<ReportEntry> computeDCRestrictions(String uml){
-//		
+//
 //		List<ReportEntry> entries = Lists.newArrayList();
 //		for (int index = 0; index < restrictionsDC.size(); index++) {
 //			Restriction res = restrictionsDC.get(index);
@@ -112,7 +112,7 @@
 //		}
 //		return entries;
 //	}
-//	
+//
 //	@Override
 //	public List<ReportEntry> computeDCURestrictions(String uml){
 //		List<ReportEntry> entries = Lists.newArrayList();
@@ -122,7 +122,7 @@
 //		}
 //		return entries;
 //	}
-//	
+//
 //	 public static List<Restriction> restrictionsDC = new ArrayList<>();
 //		public static List<Restriction> restrictionsDCU = new ArrayList<>();
 //		static {

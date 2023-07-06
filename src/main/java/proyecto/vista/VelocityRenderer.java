@@ -1,8 +1,6 @@
 package proyecto.vista;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +20,7 @@ public class VelocityRenderer implements ViewRenderer {
 	private File viewsDirectory;
 	private static final String VIEWS_PATH = "./src/main/resources";
 	private ObjectMapper mapper;
-	
+
 	public VelocityRenderer() {
 		Properties properties = new Properties();
 		properties.setProperty("file.resource.loader.path", VIEWS_PATH);
@@ -36,7 +34,7 @@ public class VelocityRenderer implements ViewRenderer {
 		return engine.render(new ModelAndView(model, template));
 	}
 
-	
+
 	@Override
 	public Map<String, Object> toModel(Object object) {
 		@SuppressWarnings("unchecked")

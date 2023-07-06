@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.MultipartConfigElement;
 
-import proyecto.vista.ViewRenderer;
 import spark.Request;
 import spark.Response;
 import spark.Route;
