@@ -20,7 +20,7 @@
   </head>
   <body>
     <div class="container-fluid">
-      <#include "./navbar.html"/>
+      #include("./navbar.html")
       
       <div class="jumbotron" style="margin-top:20px">
       	<h1 class="display-4">Nivel de Feedback</h1>

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.MultipartConfigElement;
 
-import proyecto.vista.FreemarkerRenderer;
 import proyecto.vista.ViewRenderer;
 import spark.Request;
 import spark.Response;
@@ -15,7 +14,7 @@ import spark.Route;
 
 public class ControladorAlumno {
 
-	private final static ViewRenderer renderer = new FreemarkerRenderer();
+	//private final static ViewRenderer renderer = new FreemarkerRenderer();
 
 	public static Route guardar =(request, response) -> {
 		try {
@@ -45,7 +44,7 @@ public class ControladorAlumno {
 
         Map<String, Object> attr= new HashMap<>();
         try {
-			return renderer.render(attr, "mostrar_resuelto_alum.ftl");
+			return "";//renderer.render(attr, "mostrar_resuelto_alum.ftl");
 		} catch (Exception ex) {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
