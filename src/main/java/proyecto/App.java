@@ -15,8 +15,8 @@ public class App {
         Spark.staticFileLocation("./");
         port(9000);
         // TODO: add here paths to jars
-        // Helio.setUrlProviderJar(".\\cmp\\helio-provider-url-0.1.0.jar");
-        // Helio.setUrlActionJsonCastJar(".\\cmp\\helio-action-json-cast-0.1.0.jar");
+        Helio.setUrlProviderJar(".\\cmp\\helio-provider-url-0.1.0.jar");
+        Helio.setUrlActionJsonCastJar(".\\cmp\\helio-action-json-cast-0.1.0.jar");
         Helio.loadExternalComponents();
         //stop();
 
