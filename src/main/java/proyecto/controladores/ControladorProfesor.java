@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 import javax.servlet.MultipartConfigElement;
 
+import org.hibernate.internal.build.AllowSysOut;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -35,10 +37,12 @@ public class ControladorProfesor {
 	    String mensaje = "";
 
 	    String enteroStr = request.queryParams("entero");
-
+	    
 	    if (enteroStr != null && !enteroStr.isEmpty()) {
 	        try {
 	            entero = Integer.parseInt(enteroStr);
+	            ConfiguracionDificultad i = new ConfiguracionDificultad(entero);
+	            repositorio.update(i);
 	            response.status(200);
 	            mensaje = "Guardado con éxito el entero: " + entero;
 	        } catch (NumberFormatException e) {
@@ -73,20 +77,23 @@ public class ControladorProfesor {
 	    List<ReportEntry> solution =  doc.computeDCRestrictions(archivoStringBuilder.toString());
 	    Level level = chooseLevel( Integer.parseInt(request.queryParams("entero")) );
 
-
 	    List<JsonObject> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(level)))
 	    .collect(Collectors.toList());
+	    
 	     arrayJson = gson.toJson(feedback);
-
+	     
+	     
 	     response.status(200);
+	    String mensaje = "Archivo guardado con éxito con el entero: " + request.queryParams("entero");
+//	
+//	    response.header("X-Mensaje", mensaje);
+//	    System.out.println("hola");
+	    return arrayJson;
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.status(400);
 		}
-
-	    String mensaje = arrayJson; //"Archivo guardado con éxito con el entero: " + request.queryParams("entero");
-
-        return mensaje;
+		return "";
 
 	};
 
@@ -128,11 +135,10 @@ public class ControladorProfesor {
         return " ";
 
     };
-    public static Route setupConfiguration=(Request request, Response response)->{
-
+    public static Route setupConfiguration=(Request req, Response res)->{
         Map<String, Object> attr= new HashMap<>();
         try {
-			return "";//renderer.render(attr, "nivel.ftl");
+			return renderer.render(attr, "nivel.vtl");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

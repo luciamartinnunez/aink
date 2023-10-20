@@ -9,9 +9,8 @@ import jakarta.persistence.Id;
 public class ConfiguracionDificultad {
 	private int dificultad;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-
+	private final int ID_UNIQUE = 1;
 
 	public int getId() {
 		return id;
@@ -23,6 +22,7 @@ public class ConfiguracionDificultad {
 
 	public ConfiguracionDificultad(int dificultad) {
 		super();
+		this.id = ID_UNIQUE;
 		this.dificultad = dificultad;
 	}
 

@@ -8,7 +8,6 @@
     <!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Doctor FIS</title>
-    <link href="https://github.com/AuroralH2020/kg-builder/raw/main/src/main/resources/spark/template/freemarker/css/favicon.ico" rel="shortcut icon" type="image/png">
     <!--leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
@@ -69,7 +68,10 @@
     		</tr>
   		  </thead>
 		  <tbody id="data">
-		  	<td>
+            <!-- <tr>
+                <td id="id"></td>
+                <td id="message"></td>
+            </tr> -->
 		  </tbody>
 		</table>
 		<!--tabla-->
@@ -87,12 +89,16 @@
     <script>
     
     	function verificar(){
+    	console.log("Hola");
     		if(verificarValor()){
-    		 verificarArcivo();
+    		    	console.log("Hola");
+    		
+    		 verificarArchivo();
     		 }
     		 else{$('.toast').toast('show');};
     	};
 	// Función para verificar el valor ingresado
+	
 		function verificarValor() {
 		  const valorIngresado = $("#entero").val();
 		  const numero = parseInt(valorIngresado);
@@ -106,9 +112,9 @@
 		  else {
 		  	return true;
 		  	};
-		}
+		};
 		
-		function verificarArcivo(){
+		function verificarArchivo(){
 			const archivo = $("#archivo")[0].files[0];
 			if(archivo){
 				$('.toast').toast('hide');
@@ -116,24 +122,32 @@
 			else {
 				$("#divMsgError").css("visibility", "hidden");
 				$('.toast').toast('show');};
-		}
+		};
         function enviar() {
 	            var archivo = $("#archivo")[0].files[0];
 	            var entero = $("#entero").val();
 	            console.log(archivo+" "+entero);
 	            var formData = new FormData();
+	            
 	            formData.append("archivo", archivo);
+	            
 	            formData.append("entero", entero);
+	            
+	            
               var xmlHttp = new XMLHttpRequest();
+              
               xmlHttp.onreadystatechange = function() { 
                   console.log(xmlHttp.responseText);
                   if (xmlHttp.readyState == 4){
                       if(xmlHttp.status < 300){
                       console.log(xmlHttp.responseText);
                       $("#spinner-submit").css("visibility", "hidden");
-                      $("#divMsgError").css("visibility", "visible");
+                      $("#divMsgError").css("display", "none");
                       $("#divMsgError").css("color", "green");
+                      v= JSON.parse(xmlHttp.responseText );
                       console.log(xmlHttp.responseText );
+                      console.log(v);
+                      imprimirDatosEnTabla(v);
                       $("#msgError").text( xmlHttp.responseText );
                     }else{
                        $("#spinner-submit").css("visibility", "hidden");
@@ -142,10 +156,30 @@
                       $("#msgError").value = xmlHttp.responseText;
                     }
                   }
-              };
-              console.log(formData);
+              };
+					console.log("Hola");
               xmlHttp.open("POST", "/api/solve-professor", true); // true for asynchronous 
               xmlHttp.send(formData);
-            }
+            };
+            
+          function imprimirDatosEnTabla(datos) {
+			    var tabla = document.getElementById("data");
+			    tabla.innerHTML = ""; // Limpiamos la tabla
+			
+			    datos.forEach(function(dato) {
+			    	var tabla = document.getElementById("data");
+			        var fila = document.createElement("tr");
+			        var codigoCell = document.createElement("td");
+			        var errorCell = document.createElement("td");
+					console.log(dato);
+			        codigoCell.textContent = dato.id; 
+			        errorCell.textContent = dato.message;   
+			
+			        fila.appendChild(codigoCell);
+			        fila.appendChild(errorCell);
+			
+			        tabla.appendChild(fila);
+			    });
+			   };  
         </script>
 </html>

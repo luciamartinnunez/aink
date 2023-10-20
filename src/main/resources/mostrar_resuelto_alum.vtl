@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Doctor FIS</title>
+    <link href="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/Logotipo/LOGOTIPO%20color%20PNG.png" rel="shortcut icon" type="image/png">
+	<style>
+        .table {
+            font-size: 0.7em;
+        }
+
+        .table th, .table td {
+            padding: 0.25em 1em;
+        }
+
+        .jumbotron {
+            margin-top: 10px;
+        }
+
+        .jumbotron h1 {
+            font-size: 2.5rem;
+        }
+
+        section {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 80px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        section p {
+            font-size: 0.7rem;
+        }
+    </style>
+    
+  </head>
+  <body>
+  
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light " style="background-color:#005fcc;">
+            <a class="navbar-brand" href="https://www.upm.es/"><img src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/Logotipo/LOGOTIPO%20color%20PNG.png" width="90px"/></a>
+				<span class="navbar-text">
+				    <h1 class="mb-0" style="font-size: 2.4rem; font-weight: bold; color: #FFFFFF;">Validador UML</h1>
+				</span>
+        </nav>
+    </div>
+    
+	<section id="about" class="my-4 py-2 bg-light">
+	    <div class="container-fluid">
+	        <h2 class="text-primary mb-3">Sobre el PIE:</h2>
+	        <p class="lead mb-3" style= "font-size:1rem;">Esta herramienta, diseñada para ser utilizada por los alumnos, tiene como objetivo la validación automática de diagramas de modelado de software para la asignatura de Fundamentos de Ingeniería del Software en la UPM. Utilizando inteligencia artificial, la herramienta identifica errores y proporciona orientación a los estudiantes, mejorando la motivación y los resultados de aprendizaje. Facilita una retroalimentación rápida y efectiva, especialmente en cursos con muchos estudiantes. Compatible con Enterprise Architect, disponible en toda la UPM, y puede extenderse a otras asignaturas que requieran modelado de software.
+	        </p>
+	        <table class="table">
+			    <tr>
+			        <th>Coordinador(a)</th>
+			        <td>ANDREA JESUS CIMMINO ARRIAGA</td>
+			    </tr>
+			    <tr>
+			        <th>Co-coordinador(a)</th>
+			        <td>ALDO GORDILLO MENDEZ</td>
+			    </tr>
+			    <tr>
+			        <th>Centro</th>
+			        <td>E.T.S DE ING. DE SISTEMAS INFORMÁTICOS</td>
+			    </tr>
+			    <tr>
+			        <th>Nivel</th>
+			        <td>Nivel 2. Proyectos promovidos por otros colectivos de profesores de la UPM</td>
+			    </tr>
+			    <tr>
+			        <th>Código</th>
+			        <td>IE23.6105</td>
+			    </tr>
+			    <tr>
+			        <th>Línea</th>
+			        <td>E5. Inteligencia Artificial (modelos predictivos, analíticas de datos con Big Data…)</td>
+			    </tr>
+			</table>
+				        
+			<ul class="list-inline">
+			    <li class="list-inline-item mx-3">
+			        <a href="https://github.com/luciamartinnunez/doctorFIS" target="_blank">
+			            <img src="https://raw.githubusercontent.com/luciamartinnunez/doctorFIS/main/src/main/resources/github-mark.png" alt="GitHub" width="51">
+			        </a>
+			        <p bold>GitHub.</p>
+			    </li>
+			    <li class="list-inline-item mx-3">
+			        <a href="https://innovacioneducativa.upm.es/proyectos-ie/informacion?anyo=2022-2023&id=786" target="_blank">
+			            <img src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/Logotipo%20con%20Leyenda/LOGOTIPO%20leyenda%20color%20PNG.png" alt="Ficha Proyecto I.E." width="120">
+			        </a>
+			        <p>Ficha Proyecto I.E. 2022-2023.</p>
+			    </li>
+			</ul>
+
+	    </div>
+	</section>
+      
+      <div class="jumbotron" style="margin-top:20px">
+        <h1 class="display-4">Validación Automática de Diagramas</h1>
+		<div class="mb-3">
+		    <label for="archivo" class="form-label">Aquí se adjunta el archivo UML que quieres que sea validado:</label>
+		    <input type="file" class="form-control" id="archivo">
+	    </div>
+  		<button type="submit" style="margin-top:20px" class="btn btn-primary" onclick="verificar()">
+  			Enviar</button>
+  			  <div class="spinner-border text-success" style="visibility:hidden;" id="spinner-submit" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        <div style="visibility:hidden;" id="divMsgError"><h3 id="msgError"></h3></div>
+       <!--toast-->
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="position: absolute; right: 20px;">
+		  <div class="toast-header">
+		    <strong class="mr-auto">Atención</strong>
+		    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+		      <span aria-hidden="true">&times;</span>
+		    </button>
+		  </div>
+		  <div class="toast-body">
+		    No es valida esa selección.
+		  </div>
+		</div>
+       <!--toast-->
+		<!--tabla-->
+		<div class="table-responsive" style="margin-top: 30px; visibility: hidden;" id="tabla_resultado">
+		    <table class="table table-bordered table-striped" style="font-size: 1em;">
+		        <thead class="thead-dark">
+		            <tr>
+		                <th scope="col">NÚMERO</th>
+		                <th scope="col">ERROR</th>
+		            </tr>
+		        </thead>
+		        <tbody id="data"></tbody>
+		    </table>
+		</div>
+		<!--tabla-->
+	  </div>
+  	</div>
+  	<footer class="bg-primary text-white text-center py-3">
+        <p>&copy; <span id="currentYear"></span> Universidad Politécnica de Madrid</p>
+    </footer>
+  </body>
+  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    $("#linkhome").css('text-decoration', 'underline')
+    </script>
+    <script>
+
+		function verificar(){
+			$("#tabla_resultado").css("visibility", "hidden");
+			const archivo = $("#archivo")[0].files[0];
+			if(archivo){
+				$('.toast').toast('hide');
+		  		enviar();}
+			else {
+				$("#divMsgError").css("visibility", "hidden");
+				$('.toast').toast('show');};
+		};
+		
+        function enviar() {
+	            var archivo = $("#archivo")[0].files[0];
+	            var formData = new FormData();
+	            $("#spinner-submit").css("visibility", "visible");
+	          
+	            formData.append("archivo", archivo);	            
+	            
+              var xmlHttp = new XMLHttpRequest();
+              
+              xmlHttp.onreadystatechange = function() { 
+                  if (xmlHttp.readyState == 4){
+                      if(xmlHttp.status < 300){
+                      $("#tabla_resultado").css("visibility", "visible");
+                      $("#spinner-submit").css("visibility", "hidden");
+                      $("#divMsgError").css("display", "none");
+                      $("#divMsgError").css("color", "green");
+                      v= JSON.parse(xmlHttp.responseText );
+                      imprimirDatosEnTabla(v);
+                      $("#msgError").text( xmlHttp.responseText );
+                    }else{
+                       $("#spinner-submit").css("visibility", "hidden");
+                      $("#divMsgError").css("visibility", "visible");
+                      $("#divMsgError").css("color", "red");
+                      $("#msgError").value = xmlHttp.responseText;
+                    }
+                  }
+              };
+              		xmlHttp.open("POST", "/api/guardar-archivo-alumno", true); // true for asynchronous 
+		           xmlHttp.send(formData);
+            };
+            
+          function imprimirDatosEnTabla(datos) {
+			    var tabla = document.getElementById("data");
+			    tabla.innerHTML = ""; // Limpiamos la tabla
+			
+			    datos.forEach(function(dato) {
+			    	var tabla = document.getElementById("data");
+			        var fila = document.createElement("tr");
+			        var codigoCell = document.createElement("td");
+			        var errorCell = document.createElement("td");
+					var i=1;
+			        codigoCell.textContent = i; i++;
+			        errorCell.textContent = dato.message;   
+			
+			        fila.appendChild(codigoCell);
+			        fila.appendChild(errorCell);
+			
+			        tabla.appendChild(fila);
+			    });
+			   }; 
+		
+			document.getElementById('currentYear').textContent = new Date().getFullYear(); 
+        </script>
+</html>

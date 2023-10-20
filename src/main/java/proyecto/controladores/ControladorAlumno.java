@@ -3,51 +3,89 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.MultipartConfigElement;
 
+import org.hibernate.internal.build.AllowSysOut;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
+import doctor.DoctorFIS;
+import doctor.DoctorFisImpl;
+import doctor.model.report.Level;
+import doctor.model.report.ReportEntry;
+import proyecto.modelo.ConfiguracionDificultad;
+import proyecto.persistencia.Repository;
+import proyecto.vista.VelocityRenderer;
+import proyecto.vista.ViewRenderer;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 public class ControladorAlumno {
 
-	//private final static ViewRenderer renderer = new FreemarkerRenderer();
+	private static  Gson gson = new GsonBuilder().create();
+	private final static ViewRenderer renderer = new VelocityRenderer();
+	private static Repository<ConfiguracionDificultad> repositorio = new Repository<>(ConfiguracionDificultad.class);
+
 
 	public static Route guardar =(request, response) -> {
+		String arrayJson = "[]";
 		try {
-			request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("./temp"));
-			InputStream archivoInputStream = request.raw().getPart("archivo").getInputStream();
-			BufferedReader archivoBufferedReader = new BufferedReader(new InputStreamReader(archivoInputStream));
-		    StringBuilder archivoStringBuilder = new StringBuilder();
-		    String lineaArchivo;
-		    while ((lineaArchivo = archivoBufferedReader.readLine()) != null) {
-		        archivoStringBuilder.append(lineaArchivo);
-		        archivoStringBuilder.append(System.lineSeparator());
-		    }
-	    System.out.println(archivoStringBuilder.toString());
-	    response.status(200);
-		}
-		catch(Exception e) {
+
+		request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("./temp"));
+
+		InputStream archivoInputStream = request.raw().getPart("archivo").getInputStream();
+		BufferedReader archivoBufferedReader = new BufferedReader(new InputStreamReader(archivoInputStream));
+	    StringBuilder archivoStringBuilder = new StringBuilder();
+	    String lineaArchivo;
+	    while ((lineaArchivo = archivoBufferedReader.readLine()) != null) {
+	        archivoStringBuilder.append(lineaArchivo);
+	        archivoStringBuilder.append(System.lineSeparator());
+	    }
+	    DoctorFIS doc = DoctorFisImpl.create();
+	    List<ReportEntry> solution =  doc.computeDCRestrictions(archivoStringBuilder.toString());
+	    ConfiguracionDificultad conf = repositorio.retrieve().get(0);
+	    Level level = ControladorProfesor.chooseLevel(conf.getDificultad());
+
+	    List<JsonObject> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(level)))
+	    .collect(Collectors.toList());
+	    
+	     arrayJson = gson.toJson(feedback);
+	     
+	     
+	     response.status(200);
+	    String mensaje = "Archivo guardado con éxito con el entero: " + request.queryParams("entero");
+
+	    return arrayJson;
+		}catch(Exception e) {
 			e.printStackTrace();
 			response.status(400);
 		}
-	    String mensaje = "Archivo guardado con éxito";
+		return "";
 
-        return mensaje;
-     };
+	};
 
-
-	public static Route resolver =(Request req, Response res)->{
-
+    public static Route resolver=(Request req, Response res)->{
         Map<String, Object> attr= new HashMap<>();
         try {
-			return "";//renderer.render(attr, "mostrar_resuelto_alum.ftl");
-		} catch (Exception ex) {
+			return renderer.render(attr, "mostrar_resuelto_alum.vtl");
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			ex.printStackTrace();
+			e.printStackTrace();
 		}
         return " ";
+
     };
+    private static JsonObject mapToJson(String id, String message) {
+		JsonObject json = new JsonObject();
+		json.addProperty("id", id);
+		json.addProperty("message", message);
+		return json;
+	}
 }
