@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.MultipartConfigElement;
@@ -56,8 +57,7 @@ public class ControladorAlumno {
 	    ConfiguracionDificultad conf = repositorio.retrieve().get(0);
 	    Level level = ControladorProfesor.chooseLevel(conf.getDificultad());
 
-	    List<JsonObject> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(Level.MIN)))
-	    .collect(Collectors.toList());
+	    Set<String> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(Level.DETAILED))).map(jsonElem -> jsonElem.get("message").getAsString()).collect(Collectors.toSet());
 	    
 	     arrayJson = gson.toJson(feedback);
 	     

@@ -190,7 +190,7 @@
                       $("#spinner-submit").css("visibility", "hidden");
                       $("#divMsgError").css("display", "none");
                       $("#divMsgError").css("color", "green");
-                      v= JSON.parse(xmlHttp.responseText );
+                      v = console.log(xmlHttp.responseText );
                       imprimirDatosEnTabla(v);
                       $("#msgError").text( xmlHttp.responseText );
                     }else{
@@ -208,15 +208,15 @@
           function imprimirDatosEnTabla(datos) {
 			    var tabla = document.getElementById("data");
 			    tabla.innerHTML = ""; // Limpiamos la tabla
-			
+				var i=1;
 			    datos.forEach(function(dato) {
 			    	var tabla = document.getElementById("data");
 			        var fila = document.createElement("tr");
 			        var codigoCell = document.createElement("td");
 			        var errorCell = document.createElement("td");
-					var i=1;
+					
 			        codigoCell.textContent = i; i++;
-			        errorCell.textContent = dato.message;   
+			        errorCell.textContent = dato;   
 			
 			        fila.appendChild(codigoCell);
 			        fila.appendChild(errorCell);
