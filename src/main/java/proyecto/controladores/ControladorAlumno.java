@@ -50,10 +50,13 @@ public class ControladorAlumno {
 	    }
 	    DoctorFIS doc = DoctorFisImpl.create();
 	    List<ReportEntry> solution =  doc.computeDCRestrictions(archivoStringBuilder.toString());
+	    List<ReportEntry> solution2 = doc.computeDCURestrictions(archivoStringBuilder.toString());
+	    solution.addAll(solution2);
+	    
 	    ConfiguracionDificultad conf = repositorio.retrieve().get(0);
 	    Level level = ControladorProfesor.chooseLevel(conf.getDificultad());
 
-	    List<JsonObject> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(level)))
+	    List<JsonObject> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(Level.MIN)))
 	    .collect(Collectors.toList());
 	    
 	     arrayJson = gson.toJson(feedback);
