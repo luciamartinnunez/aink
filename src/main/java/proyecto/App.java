@@ -34,6 +34,8 @@ public class App {
 	    get("/info", ControladorAlumno.gestionar);
 
 
+	    get("/", ControladorAlumno.resolver);
+
         path("/api", () -> {
         	post("/solve-professor", ControladorProfesor.guardar);
         	post("/guardar-archivo-alumno", ControladorAlumno.guardar);

@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.MultipartConfigElement;
@@ -50,12 +51,16 @@ public class ControladorAlumno {
 	    }
 	    DoctorFIS doc = DoctorFisImpl.create();
 	    List<ReportEntry> solution =  doc.computeDCRestrictions(archivoStringBuilder.toString());
+	    List<ReportEntry> solution2 = doc.computeDCURestrictions(archivoStringBuilder.toString());
+	    solution.addAll(solution2);
+	    
 	    ConfiguracionDificultad conf = repositorio.retrieve().get(0);
 	    Level level = ControladorProfesor.chooseLevel(conf.getDificultad());
-
+	    
+	    
 	    Level level2 = Level.SOLUTION;
-	    List<JsonObject> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(level2)))
-	    .collect(Collectors.toList());
+//	    List<JsonObject> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(level2))).collect(Collectors.toList());
+	    Set<String> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(Level.DETAILED))).map(jsonElem -> jsonElem.get("message").getAsString()).collect(Collectors.toSet());
 	    
 	     arrayJson = gson.toJson(feedback);
 	     
