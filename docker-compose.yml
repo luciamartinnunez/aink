@@ -1,0 +1,6 @@
+version: '3'
+services:
+  doctor-fis-service:
+    image: acimmino/doctor-fis-service:1.0.1
+    ports:
+      - "9000:9000"
