@@ -1,5 +1,16 @@
 # DoctorFIS
 
+### Docker quickstart
+
+
+````yml
+version: '3'
+services:
+  doctor-fis-service:
+    image: acimmino/doctor-fis-service:1.0.0
+    ports:
+      - "9000:9000"
+````
 
 ### Acknowledgements
 This project has been funded by:
