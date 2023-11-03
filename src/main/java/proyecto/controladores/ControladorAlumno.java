@@ -53,7 +53,8 @@ public class ControladorAlumno {
 	    ConfiguracionDificultad conf = repositorio.retrieve().get(0);
 	    Level level = ControladorProfesor.chooseLevel(conf.getDificultad());
 
-	    List<JsonObject> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(level)))
+	    Level level2 = Level.SOLUTION;
+	    List<JsonObject> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(level2)))
 	    .collect(Collectors.toList());
 	    
 	     arrayJson = gson.toJson(feedback);
@@ -82,6 +83,19 @@ public class ControladorAlumno {
         return " ";
 
     };
+    
+    public static Route gestionar=(Request req, Response res)->{
+        Map<String, Object> attr= new HashMap<>();
+        try {
+			return renderer.render(attr, "mostrar_información_PIE.vtl");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return " ";
+
+    };
+    
     private static JsonObject mapToJson(String id, String message) {
 		JsonObject json = new JsonObject();
 		json.addProperty("id", id);

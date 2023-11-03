@@ -31,6 +31,8 @@ public class App {
 	    get("/conf", ControladorProfesor.setupConfiguration);
 	    get("/prof", ControladorProfesor.resolver);
 	    get("/alum", ControladorAlumno.resolver);
+	    get("/info", ControladorAlumno.gestionar);
+
 
         path("/api", () -> {
         	post("/solve-professor", ControladorProfesor.guardar);

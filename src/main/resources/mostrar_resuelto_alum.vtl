@@ -18,10 +18,6 @@
             padding: 0.25em 1em;
         }
 
-        .jumbotron {
-            margin-top: 10px;
-        }
-
         .jumbotron h1 {
             font-size: 2.5rem;
         }
@@ -53,60 +49,23 @@
 				<span class="navbar-text">
 				    <h1 class="mb-0" style="font-size: 2.4rem; font-weight: bold; color: #FFFFFF;">Validador UML</h1>
 				</span>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			    	<span class="navbar-toggler-icon"></span>
+			  	</button>
+			  	<div class="collapse navbar-collapse" id="navbarNav">
+			    <ul class="navbar-nav ml-auto">
+			      <li class="nav-item active">
+					<a class ="nav-link" href="http://localhost:9000/alum"> Home </a>
+			      </li>
+			      <li class="nav-item">
+					<a class ="nav-link" href="http://localhost:9000/info"> About </a>
+				  </li>
+			    </ul>
+			  </div>
         </nav>
     </div>
     
-	<section id="about" class="my-4 py-2 bg-light">
-	    <div class="container-fluid">
-	        <h2 class="text-primary mb-3">Sobre el PIE:</h2>
-	        <p class="lead mb-3" style= "font-size:1rem;">Esta herramienta, diseñada para ser utilizada por los alumnos, tiene como objetivo la validación automática de diagramas de modelado de software para la asignatura de Fundamentos de Ingeniería del Software en la UPM. Utilizando inteligencia artificial, la herramienta identifica errores y proporciona orientación a los estudiantes, mejorando la motivación y los resultados de aprendizaje. Facilita una retroalimentación rápida y efectiva, especialmente en cursos con muchos estudiantes. Compatible con Enterprise Architect, disponible en toda la UPM, y puede extenderse a otras asignaturas que requieran modelado de software.
-	        </p>
-	        <table class="table">
-			    <tr>
-			        <th>Coordinador(a)</th>
-			        <td>ANDREA JESUS CIMMINO ARRIAGA</td>
-			    </tr>
-			    <tr>
-			        <th>Co-coordinador(a)</th>
-			        <td>ALDO GORDILLO MENDEZ</td>
-			    </tr>
-			    <tr>
-			        <th>Centro</th>
-			        <td>E.T.S DE ING. DE SISTEMAS INFORMÁTICOS</td>
-			    </tr>
-			    <tr>
-			        <th>Nivel</th>
-			        <td>Nivel 2. Proyectos promovidos por otros colectivos de profesores de la UPM</td>
-			    </tr>
-			    <tr>
-			        <th>Código</th>
-			        <td>IE23.6105</td>
-			    </tr>
-			    <tr>
-			        <th>Línea</th>
-			        <td>E5. Inteligencia Artificial (modelos predictivos, analíticas de datos con Big Data…)</td>
-			    </tr>
-			</table>
-				        
-			<ul class="list-inline">
-			    <li class="list-inline-item mx-3">
-			        <a href="https://github.com/luciamartinnunez/doctorFIS" target="_blank">
-			            <img src="https://raw.githubusercontent.com/luciamartinnunez/doctorFIS/main/src/main/resources/github-mark.png" alt="GitHub" width="51">
-			        </a>
-			        <p bold>GitHub.</p>
-			    </li>
-			    <li class="list-inline-item mx-3">
-			        <a href="https://innovacioneducativa.upm.es/proyectos-ie/informacion?anyo=2022-2023&id=786" target="_blank">
-			            <img src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/Logotipo%20con%20Leyenda/LOGOTIPO%20leyenda%20color%20PNG.png" alt="Ficha Proyecto I.E." width="120">
-			        </a>
-			        <p>Ficha Proyecto I.E. 2022-2023.</p>
-			    </li>
-			</ul>
-
-	    </div>
-	</section>
-      
-      <div class="jumbotron" style="margin-top:20px">
+      <div class="jumbotron" style="margin-top:20px;">
         <h1 class="display-4">Validación Automática de Diagramas</h1>
 		<div class="mb-3">
 		    <label for="archivo" class="form-label">Aquí se adjunta el archivo UML que quieres que sea validado:</label>
@@ -190,7 +149,7 @@
                       $("#spinner-submit").css("visibility", "hidden");
                       $("#divMsgError").css("display", "none");
                       $("#divMsgError").css("color", "green");
-                      v= JSON.parse(xmlHttp.responseText );
+                      v= xmlHttp.responseText ;
                       imprimirDatosEnTabla(v);
                       $("#msgError").text( xmlHttp.responseText );
                     }else{
@@ -208,15 +167,15 @@
           function imprimirDatosEnTabla(datos) {
 			    var tabla = document.getElementById("data");
 			    tabla.innerHTML = ""; // Limpiamos la tabla
+				var i=1;
 			
 			    datos.forEach(function(dato) {
 			    	var tabla = document.getElementById("data");
 			        var fila = document.createElement("tr");
 			        var codigoCell = document.createElement("td");
 			        var errorCell = document.createElement("td");
-					var i=1;
 			        codigoCell.textContent = i; i++;
-			        errorCell.textContent = dato.message;   
+			        errorCell.textContent = dato;   
 			
 			        fila.appendChild(codigoCell);
 			        fila.appendChild(errorCell);

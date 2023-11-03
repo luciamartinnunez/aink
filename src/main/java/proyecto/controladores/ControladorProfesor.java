@@ -148,7 +148,6 @@ public class ControladorProfesor {
     };
 
 
-
 //    public static List<ReportEntry> resolver(String uml){
 //
 //    	 DoctorFisAux doc = new DoctorFisAux(uml.toString());
