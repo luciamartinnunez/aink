@@ -41,31 +41,30 @@
     </style>
     
   </head>
-  <body>
+  <body style="padding-bottom: 70px;">
   
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light " style="background-color:#005fcc;">
             <a class="navbar-brand" href="https://www.upm.es/"><img src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/Logotipo/LOGOTIPO%20color%20PNG.png" width="90px"/></a>
 				<span class="navbar-text">
-				    <h1 class="mb-0" style="font-size: 2.4rem; font-weight: bold; color: #FFFFFF;">Validador UML</h1>
+				    <h4 class="mb-0" style="font-weight: bold; color: #FFFFFF;">Validador UML</h4>
 				</span>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			    	<span class="navbar-toggler-icon"></span>
 			  	</button>
 			  	<div class="collapse navbar-collapse" id="navbarNav">
-			    <ul class="navbar-nav ml-auto">
+			    <ul class="navbar-nav ml-auto" >
 			      <li class="nav-item active">
-					<a class ="nav-link" href="http://localhost:9000/alum"> Home </a>
+					<a class ="nav-link" style="color: white" href="http://localhost:9000/alum"> Home </a>
 			      </li>
 			      <li class="nav-item">
-					<a class ="nav-link" href="http://localhost:9000/info"> About </a>
+					<a class ="nav-link" style="color: white" href="http://localhost:9000/info"> About </a>
 				  </li>
 			    </ul>
 			  </div>
         </nav>
-    </div>
-    
-      <div class="jumbotron" style="margin-top:20px;">
+
+         <div class="jumbotron" style="margin-top:20px;">
         <h1 class="display-4">Validación Automática de Diagramas</h1>
 		<div class="mb-3">
 		    <label for="archivo" class="form-label">Aquí se adjunta el archivo UML que quieres que sea validado:</label>
@@ -104,11 +103,18 @@
 		</div>
 		<!--tabla-->
 	  </div>
-  	</div>
-  	<footer class="bg-primary text-white text-center py-3">
-        <p>&copy; <span id="currentYear"></span> Universidad Politécnica de Madrid</p>
-    </footer>
+	  <div class="navbar fixed-bottom bg-primary" style="text-align:center;color:white">
+	  	<div style="text-align:center;color:white; position: inline-block;margin: auto">
+	  	<p>&copy; <span id="currentYear"></span> Universidad Politécnica de Madrid (<a style="color:white" href="https://innovacioneducativa.upm.es/proyectos-ie/informacion?anyo=2022-2023&id=786">PIE IE23.6105</a>)</p>
+	  </div>
+	  </div>
+    </div>
+    
+     
+
+  
   </body>
+
   <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -161,7 +167,7 @@
                       $("#msgError").value = xmlHttp.responseText;
                     }
                   }
-              };
+              };
               		xmlHttp.open("POST", "/api/guardar-archivo-alumno", true); // true for asynchronous 
 		           xmlHttp.send(formData);
             };

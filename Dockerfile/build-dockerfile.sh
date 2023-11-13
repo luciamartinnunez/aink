@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Default configuration
-ENV=1.0.1
+ENV=1.0.2
 REGISTRY=acimmino
 IMAGE_NAME=doctor-fis-service
 PLATFORMS=linux/amd64,linux/arm64,linux/arm/v7
