@@ -7,7 +7,7 @@
 version: '3'
 services:
   doctor-fis-service:
-    image: acimmino/doctor-fis-service:1.0.0
+    image: acimmino/doctor-fis-service:1.0.2
     ports:
       - "9000:9000"
 ````
