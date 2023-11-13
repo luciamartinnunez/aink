@@ -8,22 +8,37 @@
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.1</version>
         <executions>
           <execution>
             <phase>package</phase>
             <goals>
               <goal>shade</goal>
             </goals>
-            <configuration>
-              <transformers>
-                <transformer>
-                  <mainClass>proyecto.App</mainClass>
-                </transformer>
-              </transformers>
-            </configuration>
           </execution>
         </executions>
+        <configuration>
+          <shadedArtifactAttached>false</shadedArtifactAttached>
+          <transformers>
+            <transformer>
+              <mainClass>proyecto.App</mainClass>
+            </transformer>
+            <transformer />
+            <transformer />
+            <transformer>
+              <addHeader>false</addHeader>
+            </transformer>
+          </transformers>
+          <filters>
+            <filter>
+              <artifact>*:*</artifact>
+              <excludes>
+                <exclude>META-INF/*.SF</exclude>
+                <exclude>META-INF/*.DSA</exclude>
+                <exclude>META-INF/*.RSA</exclude>
+              </excludes>
+            </filter>
+          </filters>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -31,7 +46,7 @@
     <dependency>
       <groupId>org.apache.jena</groupId>
       <artifactId>apache-jena-libs</artifactId>
-      <version>4.10.0</version>
+      <version>4.7.0</version>
       <type>pom</type>
       <scope>compile</scope>
     </dependency>
