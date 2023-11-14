@@ -19,7 +19,7 @@ import spark.Spark;
 public class App {
     public static void main(String[] args) {
         Spark.staticFileLocation("./");
-        port(80);
+        port(9000);
         // TODO: add here paths to jars
         Helio.setUrlProviderJar("https://github.com/helio-ecosystem/helio-provider-url/releases/download/v0.1.0/helio-provider-url-0.1.0.jar ");
         Helio.setUrlActionJsonCastJar("https://github.com/helio-ecosystem/helio-action-json-cast/releases/download/v0.1.0/helio-action-json-cast-0.1.0.jar ");
