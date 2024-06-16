@@ -1,5 +1,4 @@
-# DoctorFIS
-
+# AInk
 
 ### Docker quickstart
 
