@@ -1,0 +1,341 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* Blanco */
+    color: #000000; /* Negro */
+}
+header {
+    background-color: #003366; /* Azul oscuro */
+    padding: 20px;
+    text-align: center;
+    color: #ffffff; /* Blanco */
+    display: flex;
+    align-items: center;
+}
+.navbar-toggler{
+    data-toggle: "collapse";
+    data-target: "#navbarNav";
+    aria-controls: "navbarNav";
+    aria-expanded:"false";
+    aria-label:"Toggle navigation";
+}
+.navbar-brand img {
+    max-width: 100px; /* Tamaño máximo de la imagen */
+}
+h1 {
+    margin-left: 20px; /* Espacio entre el logo y el título */
+}
+nav {
+    background-color: #0055a5; /* Azul */
+    padding: 10px;
+    text-align: center;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: static;
+}
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+    text-align: left;
+}
+nav ul li a {
+    text-decoration: none;
+    color: #ffffff; /* Blanco */
+}
+nav ul li a:hover {
+    color: #ffcc00; /* Amarillo */
+}
+section {
+    padding: 20px;
+    text-align: center;
+}
+footer {
+    background-color: #0055a5; /* Azul */
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.form-label{
+    padding: 20px;
+    text-align: left;
+    display: none;
+}
+.embed-container {
+    width: 80%;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.embed-pdf {
+    width: 100%;
+    height: 100%;
+}
+/* Estilos para el formulario de preguntas */
+.form-group {
+    margin-left: 12.5%;
+    width: 75%;
+    background-color: #f8f9fa; /* Color de fondo */
+    padding: 20px;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-top: 5%; /* Espacio superior */
+    margin-bottom: 10%;
+}
+
+/* Estilos para las etiquetas del formulario */
+label {
+    margin-left: 10%;
+    display: block; /* Hace que las etiquetas ocupen toda la línea */
+    margin-bottom: 10px; /* Espacio inferior */
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilos para el campo de entrada */
+#num_questions, #ratioInput {
+    width: 80%; /* Ancho completo */
+    margin-left: 10%;
+    padding: 10px; /* Espaciado interior */
+    border: 1px solid #ced4da; /* Borde del campo de entrada */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-bottom: 20px; /* Espacio inferior */
+}
+
+/* Estilos para el botón de enviar */
+button[type="submit"] {
+    margin-top:20px;
+    display: block; /* Hace que el botón ocupe toda la línea */
+    margin-left: 30%;
+    margin-bottom: 10%;
+    width: 30%; /* Ancho completo */
+    padding: 10px; /* Espaciado interior */
+    background-color: #007bff; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor apuntador */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón */
+}
+
+#comeback{
+    margin: 2%;
+}
+
+select{
+    width: 80%; /* Ancho completo */
+    margin-left: 10%;
+    padding: 10px; /* Espaciado interior */
+    border: 1px solid #ced4da; /* Borde del campo de entrada */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-bottom: 20px; /* Espacio inferior */
+}
+
+.progress {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+
+}
+
+#progress-bar {
+    background-color: #f0f0f0; /* Color de fondo */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+#progress-bar.progress-bar {
+    background-color: #007bff; /* Color de progreso */
+}
+
+#progress-bar.progress-bar-striped {
+    background-color: #007bff; /* Color de progreso */
+}
+
+
+
+.range-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10%;
+    width: 80%;
+    position: relative; /* Añadido para posicionar las etiquetas correctamente */
+}
+
+.range-label {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    position: absolute; /* Añadido para posicionar las etiquetas correctamente */
+    transform: translateX(-50%); /* Añadido para centrar las etiquetas horizontalmente */
+}
+
+.range-label.facil {
+    left: 10%;
+}
+
+.range-label.normal {
+    left: 50%;
+}
+
+.range-label.dificil {
+    right: 0;
+}
+
+#difficulty {
+    width: 70%;
+    margin-left: 15%;
+}
+
+
+.btn{
+    margin-top:20px;
+    display: block; /* Hace que el botón ocupe toda la línea */
+    margin-left: 30%;
+    margin-bottom: 10%;
+    width: 30%; /* Ancho completo */
+    padding: 10px; /* Espaciado interior */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilos para el contenedor de las preguntas */
+#questions-container {
+    margin-top: 20px;
+}
+
+/* Estilos para las etiquetas de las preguntas */
+label {
+    display: block;
+    font-weight: bold;
+}
+
+/* Estilos para los botones de radio */
+.form-check-input {
+    margin-right: 5px;
+}
+
+/* Estilos para las etiquetas de los botones de radio */
+.form-check-label {
+    margin-right: 15px;
+}
+
+.btn-secondary {
+    display: block; /* Estilo por defecto */
+}
+
+
+/* Estilo para el botón deshabilitado */
+.btn[disabled] {
+    cursor: not-allowed;
+}
+
+/* Estilos generales */
+.answer-container {
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+/* Estilos para respuestas correctas */
+.answer-correct {
+  background-color: #8bc34a; /* Verde */
+}
+
+/* Estilos para respuestas incorrectas */
+.answer-incorrect {
+  background-color: #f44336; /* Rojo */
+}
+
+/* Estilos para respuestas parcialmente correctas */
+.answer-partial {
+  background-color: #ffeb3b; /* Amarillo */
+}
+
+/* Estilos para el texto de la evidencia */
+.answer-text {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Estilos para la respuesta correcta */
+.correct-answer {
+  font-weight: bold;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+  .answer-container {
+    padding: 15px;
+    font-size: 16px;
+  }
+}
+.form-check-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.modal-content {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.modal-title {
+    color: #333;
+}
+
+.modal-body {
+    color: #555;
+}
+.container {
+    height: 10%; /* Ajusta la altura según sea necesario */
+}
+.mb-3{
+    width: 60%;
+}
+#i{
+    width: 5%;
+    font-size: 5%;
+}
+.sesion .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#inicio {
+    height: 50%;
+    margin-top: 2%;
+    margin-bottom: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

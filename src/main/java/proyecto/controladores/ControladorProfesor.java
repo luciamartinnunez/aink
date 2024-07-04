@@ -14,6 +14,7 @@ import org.hibernate.internal.build.AllowSysOut;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import doctor.DoctorFIS;
 import doctor.DoctorFisImpl;
@@ -57,8 +58,23 @@ public class ControladorProfesor {
 
 	    return mensaje;
 	};
+	public static Route login =(request, response) -> {
+    	Map<String, Object> attr= new HashMap<>();
+        String username = request.queryParams("username");
+        String password = request.queryParams("password");
 
-
+        if (username.equals("profesor") && password.equals("profesor")) {
+            request.session().attribute("isLoggedIn", true);
+            response.redirect("/prof");
+        } else {
+            HashMap<String, Object> model = new HashMap<>();
+            model.put("isLoggedIn", false);
+            model.put("errorMessage", "Usuario o contraseña incorrectos.");
+			return renderer.render(model, "login.vtl");
+        }
+        return null;
+        
+	};
 	public static Route guardar =(request, response) -> {
 		String arrayJson = "[]";
 		try {
@@ -75,6 +91,8 @@ public class ControladorProfesor {
 	    }
 	    DoctorFIS doc = DoctorFisImpl.create();
 	    List<ReportEntry> solution =  doc.computeDCRestrictions(archivoStringBuilder.toString());
+	    List<ReportEntry> solution2 = doc.computeDCURestrictions(archivoStringBuilder.toString());
+	    solution.addAll(solution2);
 	    Level level = chooseLevel( Integer.parseInt(request.queryParams("entero")) );
 
 	    List<JsonObject> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(level)))
@@ -126,7 +144,13 @@ public class ControladorProfesor {
 
 	public static Route resolver=(Request req, Response res)->{
         Map<String, Object> attr= new HashMap<>();
+        Boolean isLoggedIn = false;
         try {
+        	isLoggedIn = req.session().attribute("isLoggedIn");
+            if (isLoggedIn == null || !isLoggedIn) {
+            	res.redirect("/login");
+                return null;
+            }
 			return renderer.render(attr, "mostrar_resuelto_prof.vtl");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -137,7 +161,13 @@ public class ControladorProfesor {
     };
     public static Route setupConfiguration=(Request req, Response res)->{
         Map<String, Object> attr= new HashMap<>();
+        Boolean isLoggedIn = false;
         try {
+        	isLoggedIn = req.session().attribute("isLoggedIn");
+            if (isLoggedIn == null || !isLoggedIn) {
+            	res.redirect("/login");
+                return null;
+            }
 			return renderer.render(attr, "nivel.vtl");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -146,8 +176,24 @@ public class ControladorProfesor {
         return " ";
 
     };
+	public static Route logout =(request, response) -> {
+    	Map<String, Object> attr= new HashMap<>();
+        request.session().attribute("isLoggedIn", false);
+        response.redirect("/alum");
+        return null;
+        
+	};
+    public static Route setupLogin=(Request req, Response res)->{
+        Map<String, Object> attr= new HashMap<>();
+        try {
+			return renderer.render(attr, "login.vtl");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return " ";
 
-
+    };
 //    public static List<ReportEntry> resolver(String uml){
 //
 //    	 DoctorFisAux doc = new DoctorFisAux(uml.toString());

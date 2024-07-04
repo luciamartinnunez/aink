@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Doctor FIS</title>
+    <!--leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <style type="text/css">
+		body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            margin: 5%;
+        }
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header {
+            background-color: #003366; /* Azul oscuro */
+            padding: 20px;
+            text-align: center;
+            color: #ffffff; /* Blanco */
+            display: flex;
+            align-items: center;
+        }
+        header .navbar-brand img {
+            max-width: 100px; /* Tamaño máximo de la imagen */
+        }
+        header h1 {
+            margin-left: 20px; /* Espacio entre el logo y el título */
+        }
+        nav {
+            background-color: #007bff;
+            padding: 10px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            position: static;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+            text-align: left;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #ffffff; /* Blanco */
+        }
+        nav ul li a:hover {
+            color: #ffcc00; /* Amarillo */
+        }
+        #inicio .login-container {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+   
+  </head>
+  <body>
+		<header>
+		    <a class="navbar-brand" href="https://www.upm.es/">
+		        <img src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/Logotipo/LOGOTIPO%20color%20PNG.png" alt="UPM Logo"/>
+		    </a>
+		    <h1>DoctorFIS</h1>
+		</header>
+		<nav class="navbar navbar-expand-lg navbar-light" >
+		    <button class="navbar-toggler" type="button">
+		    <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="navbarNav">
+			    <ul class="navbar-nav ml-auto">
+			      <li class="nav-item active">
+					<a class ="nav-link" href="http://localhost:9000/alum"> Home </a>
+			      </li>
+			      <li class="nav-item">
+					<a class ="nav-link" href="http://localhost:9000/info"> About </a>
+				  </li>
+			    </ul>
+		    </div>
+		</nav>
+		<div class="container" id="inicio">
+		        <div class="row">
+		            <div class="col-md-4">
+		                <h2>Iniciar sesión</h2>
+		                #if($errorMessage)
+		                <div class="alert alert-danger" role="alert">
+		                    $errorMessage
+		                </div>
+		                #end
+		                <form action="/login" method="post">
+		                    <div class="form-group">
+		                        <label for="username">Usuario</label>
+		                        <input type="text" class="form-control" id="username" name="username" required>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="password">Contraseña</label>
+		                        <input type="password" class="form-control" id="password" name="password" required>
+		                    </div>
+		                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+		                </form>
+		            </div>
+		        </div>
+		</div>
+  	<footer class="bg-primary text-white text-center py-3">
+        <p>&copy; <span id="currentYear"></span> Universidad Politécnica de Madrid</p>
+    </footer>
+  </body>
+  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    $("#linkhome").css('text-decoration', 'underline')
+    </script>
+</html>

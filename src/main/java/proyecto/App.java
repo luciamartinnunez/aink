@@ -32,6 +32,9 @@ public class App {
 	    get("/prof", ControladorProfesor.resolver);
 	    get("/alum", ControladorAlumno.resolver);
 	    get("/info", ControladorAlumno.gestionar);
+	    get("/login", ControladorProfesor.setupLogin);
+	    post("/login", ControladorProfesor.login);
+	    get("/logout", ControladorProfesor.logout);
 
 
 	    get("/", ControladorAlumno.resolver);

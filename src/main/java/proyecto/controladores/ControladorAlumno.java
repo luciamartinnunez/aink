@@ -50,18 +50,23 @@ public class ControladorAlumno {
 	        archivoStringBuilder.append(System.lineSeparator());
 	    }
 	    DoctorFIS doc = DoctorFisImpl.create();
-	    //List<ReportEntry> solution =  doc.computeDCRestrictions(archivoStringBuilder.toString());
-	    List<ReportEntry> solution = doc.computeDCURestrictions(archivoStringBuilder.toString());
+	    List<ReportEntry> solution =  doc.computeDCRestrictions(archivoStringBuilder.toString());
+	    List<ReportEntry> solution2 = doc.computeDCURestrictions(archivoStringBuilder.toString());
+	    solution.addAll(solution2);
 	    
-	    //ConfiguracionDificultad conf = repositorio.retrieve().get(0);
-	    //Level level = ControladorProfesor.chooseLevel(conf.getDificultad());
+	    ConfiguracionDificultad conf = repositorio.retrieve().get(0);
+	    Level level = ControladorProfesor.chooseLevel(conf.getDificultad());
 	    
+	    
+	    Level level2 = Level.SOLUTION;
+//	    List<JsonObject> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(level2))).collect(Collectors.toList());
 	    Set<String> feedback = solution.parallelStream().map(entry ->mapToJson(entry.getId(), entry.getMessages().get(Level.DETAILED))).map(jsonElem -> jsonElem.get("message").getAsString()).collect(Collectors.toSet());
 	    
 	     arrayJson = gson.toJson(feedback);
 	     
 	     
 	     response.status(200);
+	    String mensaje = "Archivo guardado con éxito con el entero: " + request.queryParams("entero");
 
 	    return arrayJson;
 		}catch(Exception e) {
